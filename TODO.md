@@ -1,0 +1,54 @@
+# To-Do List
+
+- [ ] Implement basic statistical functions
+  - [ ] mean
+  - [ ] median
+  - [ ] sd (standard deviation)
+  - [ ] var (variance)
+  - [ ] weighted.mean
+- [ ] Implement probability distribution functions
+  - [ ] dnorm, pnorm, qnorm, rnorm (Normal distribution)
+  - [ ] dbinom, pbinom, qbinom, rbinom (Binomial distribution)
+  - [ ] dpois, ppois, qpois, rpois (Poisson distribution)
+  - [ ] dexp, pexp, qexp, rexp (Exponential distribution)
+  - [ ] dt, pt, qt, rt (Student's t distribution)
+- [ ] Implement hypothesis testing functions
+  - [ ] t.test
+  - [ ] wilcox.test
+  - [ ] chisq.test
+  - [ ] fisher.test
+  - [ ] shapiro.test
+- [ ] Implement linear models and related functions
+  - [ ] lm (linear models)
+  - [ ] anova
+  - [ ] summary.lm
+  - [ ] predict.lm
+- [ ] Implement time series analysis functions
+  - [ ] acf (autocorrelation function)
+  - [ ] pacf (partial autocorrelation function)
+  - [ ] arima
+  - [ ] forecast.arima
+  - [ ] decompose (seasonal decomposition)
+- [ ] Implement clustering and multivariate analysis functions
+  - [ ] kmeans (k-means clustering)
+  - [ ] hclust (hierarchical clustering)
+  - [ ] prcomp (Principal Components Analysis)
+  - [ ] cmdscale (Multidimensional Scaling)
+- [ ] Implement interpolation and smoothing functions
+  - [ ] approx (linear interpolation)
+  - [ ] spline (cubic spline interpolation)
+  - [ ] loess (Local Polynomial Regression)
+- [ ] Implement data manipulation functions
+  - [ ] aggregate
+  - [ ] cutree
+  - [ ] expand.model.frame
+  - [ ] reorder.dendrogram
+- [ ] Implement optimization and root finding functions
+  - [ ] optim (general-purpose optimization)
+  - [ ] nlminb
+  - [ ] uniroot (root finding)
+- [ ] Implement miscellaneous utility functions
+  - [ ] confint (confidence intervals)
+  - [ ] cor (correlation matrices)
+  - [ ] cov (covariance matrices)
+  - [ ] na.omit (handle missing values)
