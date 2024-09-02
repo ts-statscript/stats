@@ -1,8 +1,7 @@
 # To-Do List
 
 - [ ] Implement basic statistical functions
-  - [ ] mean
-  - [ ] median
+  - [x] median
   - [ ] sd (standard deviation)
   - [ ] var (variance)
   - [ ] weighted.mean
