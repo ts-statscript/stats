@@ -1,3 +1,2 @@
-export * from './median';
+export * from './descriptive';
 export * from './sd';
-export * from './variance';
