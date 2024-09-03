@@ -1,54 +1,52 @@
-name: Deploy Documentation
+name: Generate and Deploy Documentation
 
 on:
   push:
-    branches-ignore:
-      - 'master'
+    branches:
+      - main
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: yarn install
+          node-version: '20'
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - name: Build project
-        run: yarn build
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run benchmarks
+        run: bun run benchmarks
 
       - name: Generate documentation
         run: yarn docs
 
-      - name: Run benchmarks
-        run: bun run benchmarks/index.ts
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
-      - name: Create Jekyll config
-        run: |
-          echo "theme: jekyll-theme-cayman" > ./docs/_config.yml
-          echo "plugins:" >> ./docs/_config.yml
-          echo "  - jekyll-relative-links" >> ./docs/_config.yml
-          echo "relative_links:" >> ./docs/_config.yml
-          echo "  enabled: true" >> ./docs/_config.yml
-          echo "  collections: true" >> ./docs/_config.yml
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: './docs'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          publish_branch: gh-pages
+        id: deployment
+        uses: actions/deploy-pages@v2
