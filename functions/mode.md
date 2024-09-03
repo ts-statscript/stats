@@ -37,4 +37,4 @@ mode([]); // Returns null
 
 ## Defined in
 
-[descriptive/mode.ts:13](https://github.com/ts-statscript/stats/blob/ac0440da6cf82b781df938c09882a028b7219470/src/descriptive/mode.ts#L13)
+[descriptive/mode.ts:13](https://github.com/ts-statscript/stats/blob/228c1c4008100cbd23aeeceec98691e0698577b0/src/descriptive/mode.ts#L13)

@@ -45,4 +45,4 @@ If the input is not a numeric array.
 
 ## Defined in
 
-[sd.ts:17](https://github.com/ts-statscript/stats/blob/ac0440da6cf82b781df938c09882a028b7219470/src/sd.ts#L17)
+[sd.ts:17](https://github.com/ts-statscript/stats/blob/228c1c4008100cbd23aeeceec98691e0698577b0/src/sd.ts#L17)

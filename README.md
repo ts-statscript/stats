@@ -2,8 +2,8 @@
 
 ***
 
-# stats
+# @ts-statscript/stats
 
 ## Benchmarks
 
-For detailed benchmarks, see [Benchmarks](_media/benchmarks.md).
+For detailed benchmarks, see [Benchmarks](./benchmarks.md).
