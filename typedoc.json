@@ -6,5 +6,6 @@
   "excludeExternals": true,
   "theme": "default",
   "name": "@ts-statscript/stats",
-  "readme": "README.md"
+  "readme": "README.md",
+  "plugin": ["typedoc-plugin-markdown"]
 }

@@ -20,12 +20,13 @@
   },
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist docs",
     "build": "yarn run clean && tsc",
     "format": "prettier --write .",
     "test": "jest",
     "benchmarks": "bun run benchmarks/index.ts",
-    "docs": "yarn run benchmarks && typedoc"
+    "predocs": "yarn run benchmarks && mkdir -p docs && cp benchmarks.md docs/",
+    "docs": "typedoc"
   },
   "prettier": {
     "semi": true,
