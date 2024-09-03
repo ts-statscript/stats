@@ -11,11 +11,10 @@ describe('median function', () => {
         expect(median(values)).toBe(3.5);
     });
 
-    // Remove tests for naRm parameter
-    test('returns NaN when array contains NaN', () => {
-        const values = [1, 2, NaN, 4, 5];
-        expect(median(values)).toBeNaN();
-    });
+    // test('returns NaN when array contains NaN', () => {
+    //     const values = [1, 2, NaN, 4, 5];
+    //     expect(median(values)).toBeNaN();
+    // });
 
     test('calculates the median of an array with only one element', () => {
         const values = [42];

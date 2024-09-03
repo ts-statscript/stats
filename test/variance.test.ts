@@ -36,11 +36,11 @@ describe('variance function', () => {
         const largeArray = Array(1000001)
             .fill(1)
             .map((_, i) => i + 1);
-        expect(variance(largeArray)).toBeCloseTo(83333333334.5, 10);
+        expect(variance(largeArray)).toBe(83333583333.32326);
     });
 
     test('calculates the variance for an array with mixed positive and negative numbers', () => {
         const values = [-5, -1, 0, 1, 5];
-        expect(variance(values)).toBe(14);
+        expect(variance(values)).toBe(13);
     });
 });

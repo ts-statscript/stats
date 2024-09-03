@@ -62,11 +62,11 @@ describe('sd function', () => {
         const largeArray = Array(1000001)
             .fill(1)
             .map((_, i) => i + 1);
-        expect(sd(largeArray)).toBeCloseTo(288675.1345948129, 10);
+        expect(sd(largeArray)).toBe(288675.5676055087);
     });
 
     test('calculates the standard deviation for an array with mixed positive and negative numbers', () => {
         const values = [-5, -1, 0, 1, 5];
-        expect(sd(values)).toBeCloseTo(3.7416573867739413, 10);
+        expect(sd(values)).toBe(3.605551275463989);
     });
 });

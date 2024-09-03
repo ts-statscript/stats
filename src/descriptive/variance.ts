@@ -60,7 +60,7 @@
  *
  * @param x Input array
  * @param y Optional second array for covariance calculation
- * @returns Variance or covariance
+ * @returns Variance or covariance, or NaN if input is invalid
  *
  * @example
  * // Compute variance of an array
@@ -70,7 +70,7 @@
  * // Compute covariance of two arrays
  * const result2 = variance([1, 2, 3, 4, 5], [2, 4, 5, 4, 5]);
  */
-export function variance(x: number[], y?: number[]): number | null {
+export function variance(x: number[], y?: number[]): number {
     if (y !== undefined) {
         // Handle covariance between two arrays
         return covariance(x, y);
@@ -96,11 +96,11 @@ export function variance(x: number[], y?: number[]): number | null {
  * and less prone to numerical instability for large datasets.
  *
  * @param x Input array
- * @returns Variance or null if input is invalid
+ * @returns Variance or NaN if input is invalid
  */
-function varianceSingle(x: number[]): number | null {
+function varianceSingle(x: number[]): number {
     const n = x.length;
-    if (n < 2) return null; // Variance is not defined for fewer than two elements
+    if (n < 2) return NaN; // Variance is not defined for fewer than two elements
 
     let sum = 0;
     let sumOfSquares = 0;
@@ -143,11 +143,11 @@ function varianceSingle(x: number[]): number | null {
  *
  * @param x First input array
  * @param y Second input array
- * @returns Covariance or null if input is invalid
+ * @returns Covariance or NaN if input is invalid
  */
-function covariance(x: number[], y: number[]): number | null {
+function covariance(x: number[], y: number[]): number {
     const n = Math.min(x.length, y.length);
-    if (n < 2) return null; // Covariance is not defined for fewer than two pairs
+    if (n < 2) return NaN; // Covariance is not defined for fewer than two pairs
 
     let sumX = 0,
         sumY = 0,
@@ -199,15 +199,15 @@ function covariance(x: number[], y: number[]): number | null {
  *
  * @param x First input array
  * @param y Second input array
- * @returns Correlation coefficient or null if input is invalid
+ * @returns Correlation coefficient or NaN if input is invalid
  *
  * @example
  * // Compute correlation between two arrays
  * const result = correlation([1, 2, 3, 4, 5], [2, 4, 5, 4, 5]);
  */
-export function correlation(x: number[], y: number[]): number | null {
+export function correlation(x: number[], y: number[]): number {
     const n = Math.min(x.length, y.length);
-    if (n < 2) return null; // Correlation is not defined for fewer than two pairs
+    if (n < 2) return NaN; // Correlation is not defined for fewer than two pairs
 
     let sumX = 0,
         sumY = 0,
@@ -229,5 +229,5 @@ export function correlation(x: number[], y: number[]): number | null {
         (n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY)
     );
 
-    return denominator === 0 ? null : numerator / denominator;
+    return denominator === 0 ? NaN : numerator / denominator;
 }
