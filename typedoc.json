@@ -6,5 +6,5 @@
   "excludeExternals": true,
   "theme": "default",
   "readme": "README.md",
-  "plugin": ["typedoc-plugin-markdown"]
+  "projectDocuments": ["benchmarks.md"]
 }
