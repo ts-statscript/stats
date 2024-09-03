@@ -1,4 +1,4 @@
-name: Generate and Deploy Documentation
+name: Deploy Documentation
 
 on:
   push:
@@ -6,47 +6,40 @@ on:
       - 'master'
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20
+
+      - name: Install dependencies
+        run: yarn install
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Run benchmarks
-        run: bun run benchmarks
+      - name: Build project
+        run: yarn build
 
       - name: Generate documentation
         run: yarn docs
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: './docs'
+      - name: Run benchmarks
+        run: bun run benchmarks/index.ts
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
