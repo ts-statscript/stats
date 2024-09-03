@@ -53,4 +53,4 @@ const result = correlation([1, 2, 3, 4, 5], [2, 4, 5, 4, 5]);
 
 ## Defined in
 
-[descriptive/variance.ts:208](https://github.com/ts-statscript/stats/blob/dceb26cb9061e91eee4cc8c843a1713ba4debe0f/src/descriptive/variance.ts#L208)
+[descriptive/variance.ts:208](https://github.com/ts-statscript/stats/blob/a75c9408d625640867618c02c90e8cbacb3c2fa4/src/descriptive/variance.ts#L208)

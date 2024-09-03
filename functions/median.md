@@ -41,4 +41,4 @@ The median value of the array.
 
 ## Defined in
 
-[descriptive/median.ts:24](https://github.com/ts-statscript/stats/blob/dceb26cb9061e91eee4cc8c843a1713ba4debe0f/src/descriptive/median.ts#L24)
+[descriptive/median.ts:24](https://github.com/ts-statscript/stats/blob/a75c9408d625640867618c02c90e8cbacb3c2fa4/src/descriptive/median.ts#L24)
