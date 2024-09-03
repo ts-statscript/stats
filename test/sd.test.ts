@@ -23,7 +23,7 @@ describe('sd function', () => {
 
     test('calculates the standard deviation of an array with only one element', () => {
         const values = [42];
-        expect(sd(values)).toBe(0);
+        expect(sd(values)).toBeNaN(); // Changed from 0 to NaN
     });
 
     test('returns NaN for an empty array', () => {

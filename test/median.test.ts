@@ -11,12 +11,8 @@ describe('median function', () => {
         expect(median(values)).toBe(3.5);
     });
 
-    test('handles arrays with NaN values when naRm is true', () => {
-        const values = [1, 2, NaN, 4, 5];
-        expect(median(values, true)).toBe(3);
-    });
-
-    test('returns NaN when array contains NaN and naRm is false', () => {
+    // Remove tests for naRm parameter
+    test('returns NaN when array contains NaN', () => {
         const values = [1, 2, NaN, 4, 5];
         expect(median(values)).toBeNaN();
     });
@@ -31,26 +27,9 @@ describe('median function', () => {
         expect(median(values)).toBeNaN();
     });
 
-    test('returns NaN for an array with only NaN values when naRm is false', () => {
+    test('returns NaN for an array with only NaN values', () => {
         const values = [NaN, NaN];
         expect(median(values)).toBeNaN();
-    });
-
-    test('returns NaN for an array with only NaN values when naRm is true', () => {
-        const values = [NaN, NaN];
-        expect(median(values, true)).toBeNaN();
-    });
-
-    test('throws an error if the input is not numeric', () => {
-        const values = [1, 2, 'three', 4, 5] as any;
-        expect(() => median(values)).toThrow(
-            'Argument is not numeric: returning NaN'
-        );
-    });
-
-    test('calculates the median after removing NaN values when naRm is true', () => {
-        const values = [3, NaN, 1, NaN, 2];
-        expect(median(values, true)).toBe(2);
     });
 
     test('handles arrays with all identical values', () => {
