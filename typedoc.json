@@ -5,7 +5,6 @@
   "excludeProtected": true,
   "excludeExternals": true,
   "theme": "default",
-  "name": "@ts-statscript/stats",
   "readme": "README.md",
   "plugin": ["typedoc-plugin-markdown"]
 }

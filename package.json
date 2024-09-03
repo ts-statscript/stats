@@ -25,7 +25,6 @@
     "format": "prettier --write .",
     "test": "jest",
     "benchmarks": "bun run benchmarks/index.ts",
-    "predocs": "yarn run benchmarks && mkdir -p docs && cp benchmarks.md docs/",
     "docs": "typedoc"
   },
   "prettier": {

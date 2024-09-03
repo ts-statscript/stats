@@ -1,4 +1,4 @@
-# stats
+# @ts-statscript/stats
 
 ## Benchmarks
 
