@@ -37,6 +37,15 @@ jobs:
       - name: Run benchmarks
         run: bun run benchmarks/index.ts
 
+      - name: Create Jekyll config
+        run: |
+          echo "theme: jekyll-theme-cayman" > ./docs/_config.yml
+          echo "plugins:" >> ./docs/_config.yml
+          echo "  - jekyll-relative-links" >> ./docs/_config.yml
+          echo "relative_links:" >> ./docs/_config.yml
+          echo "  enabled: true" >> ./docs/_config.yml
+          echo "  collections: true" >> ./docs/_config.yml
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

@@ -25,7 +25,7 @@
     "format": "prettier --write .",
     "test": "jest",
     "benchmarks": "bun run benchmarks/index.ts",
-    "docs": "typedoc"
+    "docs": "typedoc --out docs src"
   },
   "prettier": {
     "semi": true,
