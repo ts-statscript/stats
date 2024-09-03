@@ -1,6 +1,15 @@
 {
   "name": "@ts-statscript/stats",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "src/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ts-statscript/stats.git"
@@ -13,13 +22,10 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn run clean && tsc",
-    "prepublishOnly": "yarn run build",
-    "publishAlpha": "npm version prerelease --preid=dev --no-git-tag-version && yarn build && yarn publish --tag dev --non-interactive",
     "format": "prettier --write .",
     "test": "jest",
     "benchmarks": "bun run benchmarks/index.ts",
-    "docs": "typedoc --out docs src && cp docs/benchmark-results.md docs/",
-    "build-local": "yarn build && yarn test && yarn benchmarks && yarn docs"
+    "docs": "typedoc"
   },
   "prettier": {
     "semi": true,
@@ -41,14 +47,16 @@
     "@ts-statscript/base": "^0.0.3-dev.1"
   },
   "devDependencies": {
+    "@ts-statscript/microbenchmark": "^0.0.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.26",
     "husky": "^9.1.5",
     "jest": "^29.7.0",
-    "jsdoc": "^4.0.3",
     "prettier": "^3.3.3",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "typedoc": "^0.26.6",
+    "typedoc-plugin-markdown": "^4.2.6",
     "typescript": "^5.4.2"
   }
 }
