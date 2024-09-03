@@ -5,6 +5,7 @@ ignore/
 *.sensitive.*
 *.sensitive
 .env
+docs/
 
 # Logs
 logs
