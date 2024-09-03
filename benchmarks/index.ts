@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import bVariance from './variance';
+import bVariance from './variance.bench';
 
 async function benchmarks(): Promise<void> {
     const mdTables: string[] = [await bVariance()];
@@ -15,7 +15,7 @@ async function benchmarks(): Promise<void> {
 
     markdown += '\n';
 
-    fs.writeFileSync(path.join(process.cwd(), 'docs/benchmarks.md'), markdown);
+    fs.writeFileSync(path.join(process.cwd(), 'benchmarks.md'), markdown);
 }
 
 benchmarks();
