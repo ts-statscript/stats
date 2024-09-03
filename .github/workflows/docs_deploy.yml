@@ -1,36 +1,37 @@
-name: Build and Deploy Docs with Benchmarks
+name: Deploy Documentation
 
 on:
   push:
-    branches: [main]
-  release:
-    types: [published]
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install
 
-      - name: Run tests
-        run: npm test
-
-      - name: Run benchmarks
-        run: node benchmarks.js > benchmark-results.md
+      - name: Build project
+        run: yarn build
 
       - name: Generate documentation
-        run: npm run docs
+        run: yarn docs
+
+      - name: Run benchmarks
+        run: yarn benchmarks
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
+          publish_branch: gh-pages
