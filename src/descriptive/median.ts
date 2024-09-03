@@ -1,23 +1,3 @@
-function median_classic(x: number[]): number {
-    const n = x.length;
-    if (n === 0) return NaN;
-
-    const x_copy = x.slice(); // Use slice() for a shallow copy
-
-    // Sort the copy
-    x_copy.sort((a, b) => a - b);
-
-    // floor by convention
-    const half = Math.floor(n / 2);
-
-    // check if odd
-    if (n % 2 === 1) {
-        return x_copy[half];
-    } else {
-        return (x_copy[half - 1] + x_copy[half]) / 2;
-    }
-}
-
 /**
  * Calculates the median of an array of numbers using the QuickSelect algorithm.
  *
