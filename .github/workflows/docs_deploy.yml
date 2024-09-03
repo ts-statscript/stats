@@ -2,8 +2,8 @@ name: Generate and Deploy Documentation
 
 on:
   push:
-    branches:
-      - main
+    branches-ignore:
+      - 'master'
 
 permissions:
   contents: read
