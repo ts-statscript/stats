@@ -47,7 +47,7 @@
     "@ts-statscript/base": "^0.0.3-dev.1"
   },
   "devDependencies": {
-    "@ts-statscript/microbenchmark": "^0.0.2",
+    "@ts-statscript/microbenchmark": "^0.0.3",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.26",
     "husky": "^9.1.5",
@@ -56,7 +56,6 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.26.6",
-    "typedoc-plugin-markdown": "^4.2.6",
     "typescript": "^5.4.2"
   }
 }
