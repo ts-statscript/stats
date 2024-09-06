@@ -44,7 +44,7 @@
     ]
   },
   "dependencies": {
-    "@ts-statscript/base": "^0.0.3-dev.1"
+    "@ts-statscript/base": "^0.0.2-dev.20240906191705"
   },
   "devDependencies": {
     "@ts-statscript/microbenchmark": "^0.0.3",

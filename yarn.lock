@@ -578,10 +578,10 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
-"@ts-statscript/base@^0.0.3-dev.1":
-  version "0.0.3-dev.1"
-  resolved "https://registry.yarnpkg.com/@ts-statscript/base/-/base-0.0.3-dev.1.tgz#5b0dc57712dc3310c83dbfbac10fabf674ee75a0"
-  integrity sha512-WfqpwR+FjPSLzN1gP6mL8jXmXAGhFMHsaJvU4caw9H2oaQqkw7O1dV2O1sjJ+Y7IhMt4AEtWdhsDGfKyEJbE5A==
+"@ts-statscript/base@^0.0.2-dev.20240906191705":
+  version "0.0.2-dev.20240906191705"
+  resolved "https://registry.yarnpkg.com/@ts-statscript/base/-/base-0.0.2-dev.20240906191705.tgz#24105f9d96df0df68108bdd372393da306f836b0"
+  integrity sha512-As1CuXPAbXKs65uB5vS4wiNuangHO1j+5x84UJcRY6WK8NKMoTRWovST1ESQEcObQ3jmQMuwagCG1yTjn6MoNg==
 
 "@ts-statscript/microbenchmark@^0.0.3":
   version "0.0.3"
