@@ -1,32 +1,30 @@
 /**
- * Calculate the mode of an array of numbers
+ * Calculates the mode value of an array of numbers.
  *
- * @param x - Array of type T
- * @returns The mode of the input array. Returns null if all elements repeat equally.
+ * Executes a single pass through the array to count the occurrences of each
  *
- * @example
- * mode([1, 2, 3, 4, 5]); // Returns null
- * mode([1, 1, 1, 3, 2, 1, 5, 3]); // Returns 1
- * mode([1, 1]); // Returns 1
- * mode([]); // Returns null
+ * @param x - The input array of numbers.
+ * @returns The mode value of the array.
  */
-export function mode<T>(x: T[]): T | null {
-    const freq: Map<T, number> = new Map();
-    let maxFreq = 0;
-    // returns null if all elements repeat equally
-    let mode: T | null = null;
+export function mode(x: number[]): number | undefined {
+    const len = x.length;
+    if (len === 0) return undefined;
+    if (len === 1) return x[0];
 
-    // First pass: count the frequency of each item
-    for (const item of x) {
-        const count = (freq.get(item) || 0) + 1;
-        freq.set(item, count);
+    const counts = new Map<number, number>();
+    let maxCount = 0;
+    let modeValue: number | undefined = undefined;
 
-        // Update the mode if necessary
-        if (count > maxFreq) {
-            maxFreq = count;
-            mode = item;
+    for (let i = 0; i < len; i++) {
+        const value = x[i];
+        const count = (counts.get(value) || 0) + 1;
+        counts.set(value, count);
+
+        if (count > maxCount) {
+            maxCount = count;
+            modeValue = value;
         }
     }
 
-    return mode;
+    return modeValue;
 }
