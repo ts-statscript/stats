@@ -1,4 +1,5 @@
 # dev
+benchmarks.out/
 ignore/
 *.ignore.*
 *.ignore
