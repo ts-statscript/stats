@@ -1,12 +1,9 @@
-import fs from 'fs';
-import path from 'path';
 import {
     microbenchmark,
     BenchmarkEntry,
     benchmarkToMarkdown
 } from '@ts-statscript/microbenchmark';
-
-import { BenchmarkPath, generateRandomNums } from './utils';
+import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
 import { variance } from '../src';
 
 function variance_simple(x: number[], y?: number[]): number {
@@ -77,55 +74,21 @@ export default async function benchmark(): Promise<BenchmarkPath> {
 
     const tbl = benchmarkToMarkdown(results);
 
-    const mkdn = `
-## Variance benchmarks\n\n
+    const markdown = `
+# Variance benchmarks
 
-### Algorithms\n\n
+## Algorithms
 
 Simple variance:
 
 \`\`\`typescript
-function variance_simple(x: number[], y?: number[]): number {
-    const n = x.length;
-    if (n === 0) return NaN;
-
-    let sum_x = 0;
-    let sum_y = 0;
-    for (let i = 0; i < n; i++) {
-        sum_x += x[i];
-        sum_y += y ? y[i] : 0;
-    }
-
-    const mean_x = sum_x / n;
-    const mean_y = sum_y / n;
-
-    let sum_sq_x = 0;
-    let sum_sq_y = 0;
-    let sum_coproduct = 0;
-    for (let i = 0; i < n; i++) {
-        const dx = x[i] - mean_x;
-        const dy = y ? y[i] - mean_y : 0;
-        sum_sq_x += dx * dx;
-        sum_sq_y += dy * dy;
-        sum_coproduct += dx * dy;
-    }
-
-    return (sum_sq_x + sum_sq_y - 2 * sum_coproduct) / n;
-}
+${variance_simple.toString()}
 \`\`\`
 
-Quick select:
+Optimized variance:
 
 \`\`\`typescript
-export function variance(x: number[], y?: number[]): number {
-    if (y !== undefined) {
-        // Handle covariance between two arrays
-        return covariance(x, y);
-    }
-
-    // Handle single array variance
-    return varianceSingle(x);
-}
+${variance.toString()}
 \`\`\`
 
 ## Results
@@ -133,9 +96,8 @@ export function variance(x: number[], y?: number[]): number {
 ${tbl}
 `;
 
-    const benchPath = 'benchmarks/variance.bench.md';
+    const outfile = 'variance.bench.md';
+    writeMarkdownFile(outfile, markdown);
 
-    fs.writeFileSync(path.join(process.cwd(), benchPath), mkdn);
-
-    return { name: 'variance', path: benchPath };
+    return { name: 'variance', path: outfile };
 }

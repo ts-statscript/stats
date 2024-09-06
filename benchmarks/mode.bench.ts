@@ -4,21 +4,24 @@ import {
     benchmarkToMarkdown
 } from '@ts-statscript/microbenchmark';
 import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
-import { median } from '../src';
+import { mode } from '../src';
 
-function median_simple_sort(x: number[]): number {
-    const n = x.length;
-    if (n === 0) return NaN;
-
-    const x_copy = x.slice();
-    x_copy.sort((a, b) => a - b);
-
-    const half = Math.floor(n / 2);
-    if (n % 2 === 1) {
-        return x_copy[half];
-    } else {
-        return (x_copy[half - 1] + x_copy[half]) / 2;
+function mode_simple(x: number[]): number {
+    const counts = new Map<number, number>();
+    for (const xi of x) {
+        counts.set(xi, (counts.get(xi) || 0) + 1);
     }
+
+    let mode = NaN;
+    let maxCount = 0;
+    for (const [xi, count] of counts.entries()) {
+        if (count > maxCount) {
+            mode = xi;
+            maxCount = count;
+        }
+    }
+
+    return mode;
 }
 
 const n: number = 100_000;
@@ -26,15 +29,15 @@ const random_nums: number[] = generateRandomNums(n);
 
 const benchmarks: BenchmarkEntry[] = [
     {
-        name: 'median - simple sort',
+        name: 'mode - simple',
         fn: () => {
-            median_simple_sort(random_nums);
+            mode_simple(random_nums);
         }
     },
     {
-        name: 'median',
+        name: 'mode',
         fn: () => {
-            median(random_nums);
+            mode(random_nums);
         }
     }
 ];
@@ -49,20 +52,20 @@ export default async function benchmark(): Promise<BenchmarkPath> {
     const tbl = benchmarkToMarkdown(results);
 
     const markdown = `
-# Median benchmarks
+# Mode benchmarks
 
 ## Algorithms
 
-Simple sort:
+Simple mode:
 
 \`\`\`typescript
-${median_simple_sort.toString()}
+${mode_simple.toString()}
 \`\`\`
 
-Quick select:
+Optimized mode:
 
 \`\`\`typescript
-${median.toString()}
+${mode.toString()}
 \`\`\`
 
 ## Results
@@ -70,8 +73,8 @@ ${median.toString()}
 ${tbl}
 `;
 
-    const outfile = 'median.bench.md';
+    const outfile = 'mode.bench.md';
     writeMarkdownFile(outfile, markdown);
 
-    return { name: 'median', path: outfile };
+    return { name: 'mode', path: outfile };
 }

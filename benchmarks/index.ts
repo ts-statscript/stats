@@ -1,24 +1,26 @@
+import { config, BenchmarkPath, ensureDirectoryExists } from './utils';
 import fs from 'fs';
 import path from 'path';
-
 import bVariance from './variance.bench';
 import bMedian from './median.bench';
-import { BenchmarkPath } from './utils';
+import bMode from './mode.bench';
 
-async function benchmarks(): Promise<void> {
-    const benchmarks: BenchmarkPath[] = [await bMedian(), await bVariance()];
+async function runBenchmarks(): Promise<void> {
+    ensureDirectoryExists(config.outDir);
+    ensureDirectoryExists(config.benchmarksPath);
+
+    const benchmarks: BenchmarkPath[] = [
+        await bMedian(),
+        await bVariance(),
+        await bMode()
+    ];
 
     let markdown = '# Benchmarks: stats\n\n';
-
-    // concatenate all result tables to one markdown file for output
     benchmarks.forEach((b) => {
-        // markdown += tbl + '\n\n';
-        markdown += `- [${b.name}](${b.path})\n`;
+        markdown += `- [${b.name}](${path.join(config.benchmarksDir, b.path)})\n`;
     });
 
-    markdown += '\n';
-
-    fs.writeFileSync(path.join(process.cwd(), 'benchmarks.md'), markdown);
+    fs.writeFileSync(config.outFile, markdown);
 }
 
-benchmarks();
+runBenchmarks();
