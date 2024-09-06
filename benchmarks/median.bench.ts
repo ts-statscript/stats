@@ -6,6 +6,8 @@ import {
 import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
 import { median } from '../src';
 
+const function_name: string = median.name;
+
 function median_simple_sort(x: number[]): number {
     const n = x.length;
     if (n === 0) return NaN;
@@ -26,13 +28,13 @@ const random_nums: number[] = generateRandomNums(n);
 
 const benchmarks: BenchmarkEntry[] = [
     {
-        name: 'median - simple sort',
+        name: `${function_name} - simple sort`,
         fn: () => {
             median_simple_sort(random_nums);
         }
     },
     {
-        name: 'median',
+        name: `${function_name} - optimised`,
         fn: () => {
             median(random_nums);
         }
@@ -49,7 +51,7 @@ export default async function benchmark(): Promise<BenchmarkPath> {
     const tbl = benchmarkToMarkdown(results);
 
     const markdown = `
-# Median benchmarks
+# ${function_name} benchmarks
 
 ## Algorithms
 
@@ -70,8 +72,8 @@ ${median.toString()}
 ${tbl}
 `;
 
-    const outfile = 'median.bench.md';
+    const outfile = `${function_name}.bench.md`;
     writeMarkdownFile(outfile, markdown);
 
-    return { name: 'median', path: outfile };
+    return { name: function_name, path: outfile };
 }

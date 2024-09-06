@@ -4,17 +4,16 @@ import {
     benchmarkToMarkdown
 } from '@ts-statscript/microbenchmark';
 import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
-import { variance } from '../src';
+import { sd } from '../src';
 
-const function_name: string = variance.name;
+const function_name: string = sd.name;
 
-function varaince_simple(x: number[]): number {
-    if (x.length === 0) return NaN;
-
+function sd_simple(x: number[]): number {
+    if (x.length < 2) return NaN;
     const mean = x.reduce((acc, val) => acc + val, 0) / x.length;
     const sum = x.reduce((acc, val) => acc + (val - mean) ** 2, 0);
 
-    return sum / x.length;
+    return Math.sqrt(sum / x.length);
 }
 
 const n: number = 100_000;
@@ -24,13 +23,13 @@ const benchmarks: BenchmarkEntry[] = [
     {
         name: `${function_name} - simple`,
         fn: () => {
-            varaince_simple(random_nums);
+            sd_simple(random_nums);
         }
     },
     {
         name: `${function_name} - optimised`,
         fn: () => {
-            variance(random_nums);
+            sd(random_nums);
         }
     }
 ];
@@ -52,13 +51,13 @@ export default async function benchmark(): Promise<BenchmarkPath> {
 Simple sort:
 
 \`\`\`typescript
-${varaince_simple.toString()}
+${sd_simple.toString()}
 \`\`\`
 
 Quick select:
 
 \`\`\`typescript
-${variance.toString()}
+${sd.toString()}
 \`\`\`
 
 ## Results

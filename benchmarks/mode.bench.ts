@@ -6,22 +6,26 @@ import {
 import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
 import { mode } from '../src';
 
+const function_name: string = mode.name;
+
 function mode_simple(x: number[]): number {
-    const counts = new Map<number, number>();
-    for (const xi of x) {
-        counts.set(xi, (counts.get(xi) || 0) + 1);
+    if (x.length === 0) return NaN;
+
+    const counts: Map<number, number> = new Map();
+    for (const val of x) {
+        counts.set(val, (counts.get(val) || 0) + 1);
     }
 
-    let mode = NaN;
-    let maxCount = 0;
-    for (const [xi, count] of counts.entries()) {
-        if (count > maxCount) {
-            mode = xi;
-            maxCount = count;
+    let max_count = 0;
+    let mode_val = NaN;
+    for (const [val, count] of counts) {
+        if (count > max_count) {
+            max_count = count;
+            mode_val = val;
         }
     }
 
-    return mode;
+    return mode_val;
 }
 
 const n: number = 100_000;
@@ -29,13 +33,13 @@ const random_nums: number[] = generateRandomNums(n);
 
 const benchmarks: BenchmarkEntry[] = [
     {
-        name: 'mode - simple',
+        name: `${function_name} - simple`,
         fn: () => {
             mode_simple(random_nums);
         }
     },
     {
-        name: 'mode',
+        name: `${function_name} - optimised`,
         fn: () => {
             mode(random_nums);
         }
@@ -52,17 +56,17 @@ export default async function benchmark(): Promise<BenchmarkPath> {
     const tbl = benchmarkToMarkdown(results);
 
     const markdown = `
-# Mode benchmarks
+# ${function_name} benchmarks
 
 ## Algorithms
 
-Simple mode:
+Simple sort:
 
 \`\`\`typescript
 ${mode_simple.toString()}
 \`\`\`
 
-Optimized mode:
+Quick select:
 
 \`\`\`typescript
 ${mode.toString()}
@@ -73,8 +77,8 @@ ${mode.toString()}
 ${tbl}
 `;
 
-    const outfile = 'mode.bench.md';
+    const outfile = `${function_name}.bench.md`;
     writeMarkdownFile(outfile, markdown);
 
-    return { name: 'mode', path: outfile };
+    return { name: function_name, path: outfile };
 }
