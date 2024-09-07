@@ -3,7 +3,7 @@ import {
     BenchmarkEntry,
     benchmarkToMarkdown
 } from '@ts-statscript/microbenchmark';
-import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
+import { writeMarkdownFile, BenchmarkPath, random_nums_array } from './utils';
 import { mode } from '../src';
 
 const function_name: string = mode.name;
@@ -28,20 +28,17 @@ function mode_simple(x: number[]): number {
     return mode_val;
 }
 
-const n: number = 100_000;
-const random_nums: number[] = generateRandomNums(n);
-
 const benchmarks: BenchmarkEntry[] = [
     {
         name: `${function_name} - simple`,
         fn: () => {
-            mode_simple(random_nums);
+            mode_simple(random_nums_array);
         }
     },
     {
         name: `${function_name} - optimised`,
         fn: () => {
-            mode(random_nums);
+            mode(random_nums_array);
         }
     }
 ];

@@ -31,3 +31,8 @@ export interface BenchmarkPath {
 export function generateRandomNums(n: number): number[] {
     return Array.from({ length: n }, () => Math.random() * 100);
 }
+
+export const random_nums_array: number[] = fs
+    .readFileSync('./data/random_pos_int.txt', 'utf-8')
+    .split('\n')
+    .map(Number);

@@ -3,7 +3,7 @@ import {
     BenchmarkEntry,
     benchmarkToMarkdown
 } from '@ts-statscript/microbenchmark';
-import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
+import { writeMarkdownFile, BenchmarkPath, random_nums_array } from './utils';
 import { median } from '../src';
 
 const function_name: string = median.name;
@@ -23,20 +23,17 @@ function median_simple_sort(x: number[]): number {
     }
 }
 
-const n: number = 100_000;
-const random_nums: number[] = generateRandomNums(n);
-
 const benchmarks: BenchmarkEntry[] = [
     {
         name: `${function_name} - simple sort`,
         fn: () => {
-            median_simple_sort(random_nums);
+            median_simple_sort(random_nums_array);
         }
     },
     {
         name: `${function_name} - optimised`,
         fn: () => {
-            median(random_nums);
+            median(random_nums_array);
         }
     }
 ];

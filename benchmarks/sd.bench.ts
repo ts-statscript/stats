@@ -3,7 +3,7 @@ import {
     BenchmarkEntry,
     benchmarkToMarkdown
 } from '@ts-statscript/microbenchmark';
-import { writeMarkdownFile, BenchmarkPath, generateRandomNums } from './utils';
+import { writeMarkdownFile, BenchmarkPath, random_nums_array } from './utils';
 import { sd } from '../src';
 
 const function_name: string = sd.name;
@@ -16,20 +16,17 @@ function sd_simple(x: number[]): number {
     return Math.sqrt(sum / x.length);
 }
 
-const n: number = 100_000;
-const random_nums: number[] = generateRandomNums(n);
-
 const benchmarks: BenchmarkEntry[] = [
     {
         name: `${function_name} - simple`,
         fn: () => {
-            sd_simple(random_nums);
+            sd_simple(random_nums_array);
         }
     },
     {
         name: `${function_name} - optimised`,
         fn: () => {
-            sd(random_nums);
+            sd(random_nums_array);
         }
     }
 ];
