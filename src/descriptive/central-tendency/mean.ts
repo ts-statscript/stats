@@ -4,6 +4,7 @@ import { quickSelect } from '../../utils/quickSelect';
  * Calculates the mean of an array of numbers, with an option for trimmed mean.
  *
  * Uses the QuickSelect algorithm to efficiently calculate the trimmed mean.
+ * Employs loop unrolling for improved performance.
  *
  * @param x - The input array of numbers
  * @param trim - The fraction of elements to trim from each end (default: 0) must be between 0 and 0.5
@@ -34,11 +35,29 @@ export function mean(
     quickSelect(arr, lowTrim, 0, n - 1, handleNonNums);
     quickSelect(arr, highTrim - 1, 0, n - 1, handleNonNums);
 
-    // Calculate mean of non-trimmed elements
+    // Calculate mean of non-trimmed elements using unrolled loop
     let sum = 0;
     let count = 0;
 
-    for (let i = lowTrim; i < highTrim; i++) {
+    let i = lowTrim;
+    for (; i <= highTrim - 4; i += 4) {
+        if (!handleNonNums) {
+            sum += arr[i] + arr[i + 1] + arr[i + 2] + arr[i + 3];
+            count += 4;
+        } else {
+            for (let j = 0; j < 4; j++) {
+                if (
+                    typeof arr[i + j] === 'number' &&
+                    !Number.isNaN(arr[i + j])
+                ) {
+                    sum += arr[i + j];
+                    count++;
+                }
+            }
+        }
+    }
+
+    for (; i < highTrim; i++) {
         if (
             !handleNonNums ||
             (typeof arr[i] === 'number' && !Number.isNaN(arr[i]))
@@ -53,6 +72,7 @@ export function mean(
 
 /**
  * Calculates the simple mean of an array of numbers.
+ * Uses loop unrolling for improved performance.
  *
  * @param x - The input array of numbers
  * @param handleNonNums - If true, non-numeric values are ignored. If false, their presence will result in NaN.
@@ -63,7 +83,27 @@ function simpleMean(x: number[], handleNonNums: boolean): number {
     let sum = 0;
     let count = 0;
 
-    for (let i = 0; i < x.length; i++) {
+    let i = 0;
+    if (!handleNonNums) {
+        // Fast path: no need to check for non-numeric values
+        for (; i <= x.length - 4; i += 4) {
+            sum += x[i] + x[i + 1] + x[i + 2] + x[i + 3];
+        }
+        count = i;
+    } else {
+        // Need to check each value
+        for (; i <= x.length - 4; i += 4) {
+            for (let j = 0; j < 4; j++) {
+                if (typeof x[i + j] === 'number' && !Number.isNaN(x[i + j])) {
+                    sum += x[i + j];
+                    count++;
+                }
+            }
+        }
+    }
+
+    // Handle remaining elements
+    for (; i < x.length; i++) {
         if (
             !handleNonNums ||
             (typeof x[i] === 'number' && !Number.isNaN(x[i]))
