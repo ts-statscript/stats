@@ -1,4 +1,2 @@
-export * from './median';
-export * from './mode';
-export * from './sd';
-export * from './variance';
+export * from './central-tendency';
+export * from './dispersion';

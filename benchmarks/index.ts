@@ -2,6 +2,7 @@ import { config, BenchmarkPath, ensureDirectoryExists } from './utils';
 import fs from 'fs';
 import path from 'path';
 
+import bMean from './mean.bench';
 import bMedian from './median.bench';
 import bMode from './mode.bench';
 import bSd from './sd.bench';
@@ -12,6 +13,7 @@ async function runBenchmarks(): Promise<void> {
     ensureDirectoryExists(config.benchmarksPath);
 
     const benchmarks: BenchmarkPath[] = [
+        await bMean(),
         await bMedian(),
         await bMode(),
         await bSd(),
