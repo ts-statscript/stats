@@ -1,0 +1,61 @@
+{
+  "name": "@ts-statscript/stats",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "src/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ts-statscript/stats.git"
+  },
+  "author": {
+    "name": "Dereck Mezquita",
+    "email": "dereck@mezquita.io"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist docs",
+    "build": "yarn run clean && tsc",
+    "format": "prettier --write .",
+    "test": "jest",
+    "benchmarks": "bun run benchmarks/index.ts",
+    "docs": "yarn run benchmarks && typedoc && rm -rf benchmarks.out"
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "none",
+    "singleQuote": true,
+    "printWidth": 80,
+    "tabWidth": 4,
+    "useTabs": false,
+    "overrides": [
+      {
+        "files": "*.yml",
+        "options": {
+          "tabWidth": 2
+        }
+      }
+    ]
+  },
+  "dependencies": {
+    "@ts-statscript/base": "^0.0.2-dev.20240906191705"
+  },
+  "devDependencies": {
+    "@ts-statscript/microbenchmark": "^0.0.3",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.26",
+    "husky": "^9.1.5",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.26.6",
+    "typescript": "^5.4.2"
+  }
+}

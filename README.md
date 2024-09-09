@@ -1,1 +1,1 @@
-# stats
+# @ts-statscript/stats
