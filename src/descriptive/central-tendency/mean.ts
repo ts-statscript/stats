@@ -4,7 +4,7 @@ import { quickSelect } from '../../utils/quickSelect';
  * Calculates the mean of an array of numbers, with an option for trimmed mean.
  *
  * Uses the QuickSelect algorithm to efficiently calculate the trimmed mean.
- * Employs loop unrolling for improved performance.
+ * Employs loop unrolling for maximum performance.
  *
  * @param x - The input array of numbers
  * @param trim - The fraction of elements to trim from each end (default: 0) must be between 0 and 0.5
@@ -41,18 +41,30 @@ export function mean(
 
     let i = lowTrim;
     for (; i <= highTrim - 4; i += 4) {
+        const v0 = arr[i];
+        const v1 = arr[i + 1];
+        const v2 = arr[i + 2];
+        const v3 = arr[i + 3];
+
         if (!handleNonNums) {
-            sum += arr[i] + arr[i + 1] + arr[i + 2] + arr[i + 3];
+            sum += v0 + v1 + v2 + v3;
             count += 4;
         } else {
-            for (let j = 0; j < 4; j++) {
-                if (
-                    typeof arr[i + j] === 'number' &&
-                    !Number.isNaN(arr[i + j])
-                ) {
-                    sum += arr[i + j];
-                    count++;
-                }
+            if (typeof v0 === 'number' && !Number.isNaN(v0)) {
+                sum += v0;
+                count++;
+            }
+            if (typeof v1 === 'number' && !Number.isNaN(v1)) {
+                sum += v1;
+                count++;
+            }
+            if (typeof v2 === 'number' && !Number.isNaN(v2)) {
+                sum += v2;
+                count++;
+            }
+            if (typeof v3 === 'number' && !Number.isNaN(v3)) {
+                sum += v3;
+                count++;
             }
         }
     }
@@ -72,7 +84,7 @@ export function mean(
 
 /**
  * Calculates the simple mean of an array of numbers.
- * Uses loop unrolling for improved performance.
+ * Uses loop unrolling for maximum performance in all cases.
  *
  * @param x - The input array of numbers
  * @param handleNonNums - If true, non-numeric values are ignored. If false, their presence will result in NaN.
@@ -84,20 +96,31 @@ function simpleMean(x: number[], handleNonNums: boolean): number {
     let count = 0;
 
     let i = 0;
-    if (!handleNonNums) {
-        // Fast path: no need to check for non-numeric values
-        for (; i <= x.length - 4; i += 4) {
-            sum += x[i] + x[i + 1] + x[i + 2] + x[i + 3];
-        }
-        count = i;
-    } else {
-        // Need to check each value
-        for (; i <= x.length - 4; i += 4) {
-            for (let j = 0; j < 4; j++) {
-                if (typeof x[i + j] === 'number' && !Number.isNaN(x[i + j])) {
-                    sum += x[i + j];
-                    count++;
-                }
+    for (; i <= x.length - 4; i += 4) {
+        const v0 = x[i];
+        const v1 = x[i + 1];
+        const v2 = x[i + 2];
+        const v3 = x[i + 3];
+
+        if (!handleNonNums) {
+            sum += v0 + v1 + v2 + v3;
+            count += 4;
+        } else {
+            if (typeof v0 === 'number' && !Number.isNaN(v0)) {
+                sum += v0;
+                count++;
+            }
+            if (typeof v1 === 'number' && !Number.isNaN(v1)) {
+                sum += v1;
+                count++;
+            }
+            if (typeof v2 === 'number' && !Number.isNaN(v2)) {
+                sum += v2;
+                count++;
+            }
+            if (typeof v3 === 'number' && !Number.isNaN(v3)) {
+                sum += v3;
+                count++;
             }
         }
     }
